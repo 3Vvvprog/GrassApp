@@ -26,7 +26,7 @@ class RegistrationViewController: UIViewController {
     
     //Middle Views
     
-    private let mainView = UIView()
+    private let middleView = UIView()
     private let label = UILabel()
     private let loginTextField = UITextField()
     private let passwordTextField = UITextField()
@@ -40,6 +40,8 @@ class RegistrationViewController: UIViewController {
     private let lineView = UIView()
     
 
+    private var isLogin: Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -48,6 +50,10 @@ class RegistrationViewController: UIViewController {
         setupLayout()
         bindViewModel()
         
+    }
+    
+    deinit {
+        print("deinit")
     }
 
 
@@ -83,7 +89,7 @@ private extension RegistrationViewController {
         
         
         NSLayoutConstraint.activate([
-            topView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: -20),
+            topView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             topView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             topView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             topView.heightAnchor.constraint(equalToConstant: 60)
@@ -180,7 +186,7 @@ private extension RegistrationViewController {
         
         topView.addSubview(searchIcon)
         searchIcon.translatesAutoresizingMaskIntoConstraints = false
-        var config = UIImage.SymbolConfiguration(weight: .medium)
+        let config = UIImage.SymbolConfiguration(weight: .medium)
         searchIcon.image = UIImage(systemName: "magnifyingglass", withConfiguration: config)
        
         searchIcon.tintColor = .white
@@ -224,37 +230,37 @@ private extension RegistrationViewController {
     }
     
     func mainViewLayout() {
-        view.addSubview(mainView)
-        mainView.translatesAutoresizingMaskIntoConstraints = false
-        mainView.backgroundColor = .white
-        mainView.layer.cornerRadius = 20
+        view.addSubview(middleView)
+        middleView.translatesAutoresizingMaskIntoConstraints = false
+        middleView.backgroundColor = .white
+        middleView.layer.cornerRadius = 20
         
         NSLayoutConstraint.activate([
-            mainView.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 32),
-            mainView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            mainView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            mainView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
+            middleView.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 32),
+            middleView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            middleView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            middleView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
         ])
     }
     
     
     func labelLayout() {
-        mainView.addSubview(label)
+        middleView.addSubview(label)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Вход в аккаунт"
         label.font = UIFont.boldSystemFont(ofSize: 24)
         
         NSLayoutConstraint.activate([
         
-            label.topAnchor.constraint(equalTo: mainView.topAnchor, constant: 36),
-            label.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 16),
-            label.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -16),
+            label.topAnchor.constraint(equalTo: middleView.topAnchor, constant: 36),
+            label.leadingAnchor.constraint(equalTo: middleView.leadingAnchor, constant: 16),
+            label.trailingAnchor.constraint(equalTo: middleView.trailingAnchor, constant: -16),
         ])
     }
     
     
     func loginTextFieldLayout() {
-        mainView.addSubview(loginTextField)
+        middleView.addSubview(loginTextField)
         loginTextField.translatesAutoresizingMaskIntoConstraints = false
         loginTextField.layer.borderWidth = 1
         loginTextField.layer.borderColor = UIColor.lightGray.cgColor
@@ -265,8 +271,8 @@ private extension RegistrationViewController {
         
         NSLayoutConstraint.activate([
             loginTextField.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 32),
-            loginTextField.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -16),
-            loginTextField.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 16),
+            loginTextField.trailingAnchor.constraint(equalTo: middleView.trailingAnchor, constant: -16),
+            loginTextField.leadingAnchor.constraint(equalTo: middleView.leadingAnchor, constant: 16),
             loginTextField.heightAnchor.constraint(equalToConstant: 54),
             
         ])
@@ -274,7 +280,7 @@ private extension RegistrationViewController {
     
     
     func passwordTextFieldLayout() {
-        mainView.addSubview(passwordTextField)
+        middleView.addSubview(passwordTextField)
         passwordTextField.translatesAutoresizingMaskIntoConstraints = false
         
         passwordTextField.layer.borderWidth = 1
@@ -285,28 +291,28 @@ private extension RegistrationViewController {
         
         NSLayoutConstraint.activate([
             passwordTextField.topAnchor.constraint(equalTo: loginTextField.bottomAnchor, constant: 12),
-            passwordTextField.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -16),
-            passwordTextField.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 16),
+            passwordTextField.trailingAnchor.constraint(equalTo: middleView.trailingAnchor, constant: -16),
+            passwordTextField.leadingAnchor.constraint(equalTo: middleView.leadingAnchor, constant: 16),
             passwordTextField.heightAnchor.constraint(equalToConstant: 54)
         ])
     }
     
     func noRememberPassLayout() {
-        mainView.addSubview(noRememberPass)
+        middleView.addSubview(noRememberPass)
         noRememberPass.translatesAutoresizingMaskIntoConstraints = false
         noRememberPass.setTitle("Не помню пароль", for: .normal)
         noRememberPass.setTitleColor(Colors.lightGreen, for: .normal)
         noRememberPass.titleLabel?.font = UIFont(name: "Gilroy-Medium", size: 16)
         
         NSLayoutConstraint.activate([
-            noRememberPass.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 16),
+            noRememberPass.leadingAnchor.constraint(equalTo: middleView.leadingAnchor, constant: 16),
             noRememberPass.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 14)
         ])
         
     }
     
     func loginButtonLayout() {
-        mainView.addSubview(loginButton)
+        middleView.addSubview(loginButton)
         loginButton.translatesAutoresizingMaskIntoConstraints = false
         loginButton.setTitle("Войти", for: .normal)
         loginButton.setTitleColor(.white, for: .normal)
@@ -315,9 +321,9 @@ private extension RegistrationViewController {
         loginButton.layer.cornerRadius = 14
         
         NSLayoutConstraint.activate([
-            loginButton.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 16),
+            loginButton.leadingAnchor.constraint(equalTo: middleView.leadingAnchor, constant: 16),
             loginButton.topAnchor.constraint(equalTo: noRememberPass.bottomAnchor, constant: 24),
-            loginButton.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -16),
+            loginButton.trailingAnchor.constraint(equalTo: middleView.trailingAnchor, constant: -16),
             loginButton.heightAnchor.constraint(equalToConstant: 54)
         ])
         
@@ -327,7 +333,7 @@ private extension RegistrationViewController {
     }
     
     func createAccountButtonLayout() {
-        mainView.addSubview(createAccountButton)
+        middleView.addSubview(createAccountButton)
         createAccountButton.translatesAutoresizingMaskIntoConstraints = false
         createAccountButton.setTitle("Создать аккаунт", for: .normal)
         createAccountButton.setTitleColor(Colors.mainColorGreen, for: .normal)
@@ -338,19 +344,20 @@ private extension RegistrationViewController {
         createAccountButton.layer.borderWidth = 1
         
         NSLayoutConstraint.activate([
-            createAccountButton.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 16),
+            createAccountButton.leadingAnchor.constraint(equalTo: middleView.leadingAnchor, constant: 16),
             createAccountButton.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 12),
-            createAccountButton.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -16),
+            createAccountButton.trailingAnchor.constraint(equalTo: middleView.trailingAnchor, constant: -16),
             createAccountButton.heightAnchor.constraint(equalToConstant: 54)
         ])
         
         
-        createAccountButton.addTarget(self, action: #selector(userConfigButtonAction), for: .touchUpInside)
+        createAccountButton.addTarget(self, action: #selector(createAccountButtonAction), for: .touchUpInside)
+        
         
     }
     
     func lineViewLayout() {
-        mainView.addSubview(lineView)
+        middleView.addSubview(lineView)
         lineView.translatesAutoresizingMaskIntoConstraints = false
         lineView.backgroundColor = .clear
         
@@ -362,7 +369,7 @@ private extension RegistrationViewController {
         lineView.addSubview(labelOr)
         lineView.addSubview(line1Or)
         lineView.addSubview(line2Or)
-        mainView.addSubview(label3)
+        middleView.addSubview(label3)
         
         line1Or.translatesAutoresizingMaskIntoConstraints = false
         line2Or.translatesAutoresizingMaskIntoConstraints = false
@@ -381,9 +388,9 @@ private extension RegistrationViewController {
         label3.font = UIFont.systemFont(ofSize: 14)
         
         NSLayoutConstraint.activate([
-            lineView.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 16),
+            lineView.leadingAnchor.constraint(equalTo: middleView.leadingAnchor, constant: 16),
             lineView.topAnchor.constraint(equalTo: createAccountButton.bottomAnchor, constant: 24),
-            lineView.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -16),
+            lineView.trailingAnchor.constraint(equalTo: middleView.trailingAnchor, constant: -16),
             lineView.heightAnchor.constraint(equalToConstant: 20),
             
             
@@ -403,7 +410,7 @@ private extension RegistrationViewController {
             line2Or.heightAnchor.constraint(equalToConstant: 1),
             
             
-            label3.centerXAnchor.constraint(equalTo: mainView.centerXAnchor),
+            label3.centerXAnchor.constraint(equalTo: middleView.centerXAnchor),
             label3.topAnchor.constraint(equalTo: lineView.bottomAnchor, constant: 24)
         ])
         
@@ -412,17 +419,15 @@ private extension RegistrationViewController {
     
     
     func googleLayout() {
-        mainView.addSubview(googleImage)
+        middleView.addSubview(googleImage)
         googleImage.translatesAutoresizingMaskIntoConstraints = false
         googleImage.image = UIImage(named: "Google1")
         
         NSLayoutConstraint.activate([
-            googleImage.centerXAnchor.constraint(equalTo: mainView.centerXAnchor),
+            googleImage.centerXAnchor.constraint(equalTo: middleView.centerXAnchor),
             googleImage.topAnchor.constraint(equalTo: lineView.bottomAnchor, constant: 60)
         ])
         
-        
-        createAccountButton.addTarget(self, action: #selector(userConfigButtonAction), for: .touchUpInside)
         
     }
     
@@ -440,7 +445,26 @@ private extension RegistrationViewController {
     }
     
     @objc func loginButtonAction() {
-        viewModel.submitLogin()
+        
+        if !isLogin {
+            loginButton.setTitle("Loading...", for: .normal)
+            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) { [weak self] in
+                self?.loginTextField.layer.borderColor = UIColor.systemRed.cgColor
+                self?.loginButton.setTitle("Войти", for: .normal)
+            }
+            
+        }else {
+            viewModel.submitLogin()
+        }
+        
+        
+        
+    }
+    
+    @objc func createAccountButtonAction() {
+        let createAccountViewController = CreateAccountViewController()
+        createAccountViewController.modalPresentationStyle = .fullScreen
+        present(createAccountViewController, animated: true)
     }
 }
 
@@ -462,8 +486,8 @@ private extension RegistrationViewController {
         
             
 
-        viewModel.isLoginEnabled
-            .assign(to: \.isEnabled, on: loginButton)
+        viewModel.isValidEmailPublisher
+            .assign(to: \.isLogin, on: self)
             .store(in: &cancellables)
         
         viewModel.isLoginEnabled
@@ -489,14 +513,13 @@ private extension RegistrationViewController {
                     self?.loginButton.setTitle("Login success", for: .normal)
                     let homeViewController = HomeViewController()
                     homeViewController.modalPresentationStyle = .fullScreen
-                    
-                    
                     self?.present(homeViewController, animated: true)
                 case .failed:
                     self?.loginButton.backgroundColor = Colors.mainColorGreen
                     self?.loginButton.setTitle("Try again", for: .normal)
                     self?.loginTextField.layer.borderColor = UIColor.systemRed.cgColor
                     self?.passwordTextField.layer.borderColor = UIColor.systemRed.cgColor
+                    self?.loginButton.isEnabled = true
                 case .none:
                     break
                 }

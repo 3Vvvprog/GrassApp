@@ -37,6 +37,8 @@ class ViewModel {
     
     
     
+    
+    
     var isLoginEnabled: AnyPublisher<Bool, Never> {
         Publishers.CombineLatest(isValidEmailPublisher, isValidPasswordPublisher)
             .map { $0 && $1 }

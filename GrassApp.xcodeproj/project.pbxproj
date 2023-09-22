@@ -16,6 +16,7 @@
 		3BE41FCD2ABB80BB007B562B /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE41FCC2ABB80BB007B562B /* ViewModel.swift */; };
 		3BE41FD22ABB8226007B562B /* String+Extention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE41FD12ABB8226007B562B /* String+Extention.swift */; };
 		3BE41FD62ABC5B7F007B562B /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE41FD52ABC5B7F007B562B /* HomeViewController.swift */; };
+		3BE41FD82ABC85EB007B562B /* CreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE41FD72ABC85EB007B562B /* CreateAccountViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		3BE41FCC2ABB80BB007B562B /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		3BE41FD12ABB8226007B562B /* String+Extention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extention.swift"; sourceTree = "<group>"; };
 		3BE41FD52ABC5B7F007B562B /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		3BE41FD72ABC85EB007B562B /* CreateAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +106,7 @@
 			children = (
 				3BC274032ABB0DD000011F1E /* RegistrationViewController.swift */,
 				3BE41FD52ABC5B7F007B562B /* HomeViewController.swift */,
+				3BE41FD72ABC85EB007B562B /* CreateAccountViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -182,6 +185,7 @@
 				3BE41FD22ABB8226007B562B /* String+Extention.swift in Sources */,
 				3BC274142ABB73E300011F1E /* Colors.swift in Sources */,
 				3BC274002ABB0DD000011F1E /* AppDelegate.swift in Sources */,
+				3BE41FD82ABC85EB007B562B /* CreateAccountViewController.swift in Sources */,
 				3BE41FCD2ABB80BB007B562B /* ViewModel.swift in Sources */,
 				3BE41FD62ABC5B7F007B562B /* HomeViewController.swift in Sources */,
 				3BC274022ABB0DD000011F1E /* SceneDelegate.swift in Sources */,
