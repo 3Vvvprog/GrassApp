@@ -287,6 +287,7 @@ private extension RegistrationViewController {
         passwordTextField.layer.borderColor = UIColor.lightGray.cgColor
         passwordTextField.layer.cornerRadius = 14
         passwordTextField.placeholder = "   Пароль"
+        passwordTextField.isSecureTextEntry = true
        
         
         NSLayoutConstraint.activate([
@@ -431,6 +432,7 @@ private extension RegistrationViewController {
         
     }
     
+    
 }
 
 
@@ -466,6 +468,8 @@ private extension RegistrationViewController {
         createAccountViewController.modalPresentationStyle = .fullScreen
         present(createAccountViewController, animated: true)
     }
+    
+    
 }
 
 

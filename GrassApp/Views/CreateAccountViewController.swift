@@ -6,8 +6,12 @@
 //
 
 import UIKit
+import Combine
 
 class CreateAccountViewController: UIViewController {
+    
+    private let viewModel = ViewModel()
+    private var cancellables = Set<AnyCancellable>()
     
     //MARK: - Properties
     
@@ -30,9 +34,30 @@ class CreateAccountViewController: UIViewController {
     private let trailingToggleButton = UIButton()
     
     private let continueButton = UIButton()
-    private let backButton = UIButton()
+    private let backToLoginButton = UIButton()
     
     private var isLeftActive: Bool = true
+    
+    
+    // Middle Two Views
+    private let middleViewTwo = UIView()
+    private let topLabelTwo = UILabel()
+    private let littleLabelTwo = UILabel()
+    private let toggleViewTwo = UIView()
+    private let leadingToggleButtonTwo = UIButton()
+    private let trailingToggleButtonTwo = UIButton()
+    
+    private let continueButtonTwo = UIButton()
+    private let backButtonTwo = UIButton()
+    
+    private let emailTextField = UITextField()
+    private let takeCodeButton = UIButton()
+    private let backToEmail = UIButton()
+    
+    
+    
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,6 +73,7 @@ private extension CreateAccountViewController {
     func setupLayout() {
         setupTopItemsLayout()
         setupMiddleItemsLayout()
+        middleItemsTwo()
     }
     
     // MARK: - Top Items Layout
@@ -215,6 +241,9 @@ private extension CreateAccountViewController {
         middleView.translatesAutoresizingMaskIntoConstraints = false
         middleView.layer.cornerRadius = 20
         
+        // MARK: - Hidden
+        
+        
         
         NSLayoutConstraint.activate([
             middleView.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 32),
@@ -328,35 +357,166 @@ private extension CreateAccountViewController {
             continueButton.heightAnchor.constraint(equalToConstant: 54)
         ])
         
+        continueButton.addTarget(self, action: #selector(continueButtonAction), for: .touchUpInside)
         
         
     }
     
     func backButtonLayout() {
-        middleView.addSubview(backButton)
-        backButton.translatesAutoresizingMaskIntoConstraints = false
-        backButton.setTitle("Войти в аккаунт", for: .normal)
-        backButton.setTitleColor(Colors.mainColorGreen, for: .normal)
-        backButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
-        backButton.backgroundColor = .white
-        backButton.layer.cornerRadius = 14
-        backButton.layer.borderColor = Colors.mainColorGreen.cgColor
-        backButton.layer.borderWidth = 1
+        middleView.addSubview(backToLoginButton)
+        backToLoginButton.translatesAutoresizingMaskIntoConstraints = false
+        backToLoginButton.setTitle("Войти в аккаунт", for: .normal)
+        backToLoginButton.setTitleColor(Colors.mainColorGreen, for: .normal)
+        backToLoginButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        backToLoginButton.backgroundColor = .white
+        backToLoginButton.layer.cornerRadius = 14
+        backToLoginButton.layer.borderColor = Colors.mainColorGreen.cgColor
+        backToLoginButton.layer.borderWidth = 1
         
         NSLayoutConstraint.activate([
-            backButton.leadingAnchor.constraint(equalTo: middleView.leadingAnchor, constant: 16),
-            backButton.topAnchor.constraint(equalTo: continueButton.bottomAnchor, constant: 12),
-            backButton.trailingAnchor.constraint(equalTo: middleView.trailingAnchor, constant: -16),
-            backButton.heightAnchor.constraint(equalToConstant: 54)
+            backToLoginButton.leadingAnchor.constraint(equalTo: middleView.leadingAnchor, constant: 16),
+            backToLoginButton.topAnchor.constraint(equalTo: continueButton.bottomAnchor, constant: 12),
+            backToLoginButton.trailingAnchor.constraint(equalTo: middleView.trailingAnchor, constant: -16),
+            backToLoginButton.heightAnchor.constraint(equalToConstant: 54)
         ])
         
-        backButton.addTarget(self, action: #selector(backButtonAction), for: .touchUpInside)
+        backToLoginButton.addTarget(self, action: #selector(backButtonAction), for: .touchUpInside)
         
     }
     
     
 }
 
+// MARK: - Middle Items Two
+private extension CreateAccountViewController {
+    
+    
+    func middleItemsTwo() {
+        middleViewTwoLayout()
+        labelTwoLayout()
+        littleLabelTwoLayout()
+        loginTextFieldLayout()
+        takeCodeButtonLayout()
+        backToEmailButtonLayout()
+    }
+    
+    
+    func middleViewTwoLayout() {
+        
+        view.addSubview(middleViewTwo)
+        middleViewTwo.backgroundColor = .white
+        middleViewTwo.translatesAutoresizingMaskIntoConstraints = false
+        middleViewTwo.layer.cornerRadius = 20
+        middleViewTwo.isHidden = true
+        
+        
+        NSLayoutConstraint.activate([
+            middleViewTwo.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 32),
+            middleViewTwo.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            middleViewTwo.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            middleViewTwo.heightAnchor.constraint(equalToConstant: 380)
+        ])
+        
+    }
+    
+    
+    func labelTwoLayout() {
+        middleViewTwo.addSubview(topLabelTwo)
+        topLabelTwo.translatesAutoresizingMaskIntoConstraints = false
+        topLabelTwo.text = "Создание аккаунта"
+        topLabelTwo.font = UIFont.boldSystemFont(ofSize: 24)
+        
+        NSLayoutConstraint.activate([
+        
+            topLabelTwo.topAnchor.constraint(equalTo: middleViewTwo.topAnchor, constant: 36),
+            topLabelTwo.leadingAnchor.constraint(equalTo: middleViewTwo.leadingAnchor, constant: 16),
+            topLabelTwo.trailingAnchor.constraint(equalTo: middleViewTwo.trailingAnchor, constant: -16),
+        ])
+    }
+    
+    
+    func littleLabelTwoLayout() {
+        middleViewTwo.addSubview(littleLabelTwo)
+        littleLabelTwo.translatesAutoresizingMaskIntoConstraints =  false
+        littleLabelTwo.textColor = UIColor(red: 0.417, green: 0.431, blue: 0.438, alpha: 1)
+        littleLabelTwo.numberOfLines = 0
+        littleLabelTwo.lineBreakMode = .byWordWrapping
+        
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineHeightMultiple = 1.19
+        // Line height: 20 pt
+        littleLabelTwo.attributedText = NSMutableAttributedString(string: "На данную почту придёт письмо с кодом подтверждения", attributes: [NSAttributedString.Key.paragraphStyle: paragraphStyle])
+        
+        NSLayoutConstraint.activate([
+            littleLabelTwo.topAnchor.constraint(equalTo: topLabelTwo.bottomAnchor, constant: 32),
+            littleLabelTwo.leadingAnchor.constraint(equalTo: middleViewTwo.leadingAnchor, constant: 16),
+            littleLabelTwo.trailingAnchor.constraint(equalTo: middleViewTwo.trailingAnchor, constant: -16)
+        ])
+        
+    }
+    
+    
+    func loginTextFieldLayout() {
+        middleViewTwo.addSubview(emailTextField)
+        emailTextField.translatesAutoresizingMaskIntoConstraints = false
+        emailTextField.layer.borderWidth = 1
+        emailTextField.layer.borderColor = UIColor.lightGray.cgColor
+        emailTextField.layer.cornerRadius = 14
+        emailTextField.placeholder = "   Электронная почта"
+        
+       
+        
+        NSLayoutConstraint.activate([
+            emailTextField.topAnchor.constraint(equalTo: littleLabelTwo.bottomAnchor, constant: 8),
+            emailTextField.trailingAnchor.constraint(equalTo: middleViewTwo.trailingAnchor, constant: -16),
+            emailTextField.leadingAnchor.constraint(equalTo: middleViewTwo.leadingAnchor, constant: 16),
+            emailTextField.heightAnchor.constraint(equalToConstant: 54),
+            
+        ])
+    }
+    
+    func takeCodeButtonLayout() {
+        middleViewTwo.addSubview(takeCodeButton)
+        takeCodeButton.backgroundColor = Colors.mainColorGreen
+        takeCodeButton.setTitle("Получить код", for: .normal)
+        takeCodeButton.translatesAutoresizingMaskIntoConstraints = false
+        takeCodeButton.setTitleColor(.white, for: .normal)
+        takeCodeButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        takeCodeButton.layer.cornerRadius = 14
+        
+        NSLayoutConstraint.activate([
+            takeCodeButton.topAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: 12),
+            takeCodeButton.leadingAnchor.constraint(equalTo: middleViewTwo.leadingAnchor, constant: 16),
+            takeCodeButton.trailingAnchor.constraint(equalTo: middleViewTwo.trailingAnchor, constant: -16),
+            takeCodeButton.heightAnchor.constraint(equalToConstant: 54)
+        ])
+    }
+    
+    
+    func backToEmailButtonLayout() {
+        middleViewTwo.addSubview(backToEmail)
+        backToEmail.backgroundColor = .white
+        backToEmail.setTitle("Назад", for: .normal)
+        backToEmail.translatesAutoresizingMaskIntoConstraints = false
+        backToEmail.setTitleColor(Colors.lightGreen, for: .normal)
+        backToEmail.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        backToEmail.layer.cornerRadius = 14
+        backToEmail.layer.borderColor = Colors.mainColorGreen.cgColor
+        backToEmail.layer.borderWidth = 1
+        
+        NSLayoutConstraint.activate([
+            backToEmail.topAnchor.constraint(equalTo: takeCodeButton.bottomAnchor, constant: 12),
+            backToEmail.leadingAnchor.constraint(equalTo: middleViewTwo.leadingAnchor, constant: 16),
+            backToEmail.trailingAnchor.constraint(equalTo: middleViewTwo.trailingAnchor, constant: -16),
+            backToEmail.heightAnchor.constraint(equalToConstant: 54)
+        ])
+        
+        backToEmail.addTarget(self, action: #selector(backToEmailButtonAction), for: .touchUpInside)
+    }
+}
+
+
+// MARK: - Buttons Action
 private extension CreateAccountViewController {
     @objc func leadingToggleButtonAction() {
         
@@ -379,5 +539,31 @@ private extension CreateAccountViewController {
     @objc func backButtonAction() {
         
         dismiss(animated: true)
+    }
+    
+    @objc func continueButtonAction() {
+        middleView.isHidden = true
+        middleViewTwo.isHidden = false
+    }
+    
+    @objc func backToEmailButtonAction() {
+        middleView.isHidden = false
+        middleViewTwo.isHidden = true
+    }
+}
+
+
+
+private extension CreateAccountViewController {
+    func binViewModel() {
+        NotificationCenter.default
+            .publisher(for: UITextField.textDidChangeNotification, object: emailTextField)
+            .map { ($0.object as! UITextField).text ?? "" }
+            .assign(to: \.email, on: viewModel)
+            .store(in: &cancellables)
+        
+        viewModel.isValidEmailPublisher
+            .assign(to: \.isEnabled, on: takeCodeButton)
+            .store(in: &cancellables)
     }
 }
