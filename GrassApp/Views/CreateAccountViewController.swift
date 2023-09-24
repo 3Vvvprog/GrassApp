@@ -7,6 +7,7 @@
 
 import UIKit
 import Combine
+import MessageUI
 
 class CreateAccountViewController: UIViewController {
     
@@ -37,15 +38,13 @@ class CreateAccountViewController: UIViewController {
     private let backToLoginButton = UIButton()
     
     private var isLeftActive: Bool = true
+    private var isMenActive: Bool = true
     
     
     // Middle Two Views
     private let middleViewTwo = UIView()
     private let topLabelTwo = UILabel()
     private let littleLabelTwo = UILabel()
-    private let toggleViewTwo = UIView()
-    private let leadingToggleButtonTwo = UIButton()
-    private let trailingToggleButtonTwo = UIButton()
     
     private let continueButtonTwo = UIButton()
     private let backButtonTwo = UIButton()
@@ -59,9 +58,6 @@ class CreateAccountViewController: UIViewController {
     private let middleViewThree = UIView()
     private let topLabelThree = UILabel()
     private let littleLabelThree = UILabel()
-    private let toggleViewThree = UIView()
-    private let leadingToggleButtonThree = UIButton()
-    private let trailingToggleButtonThree = UIButton()
     
     private let continueButtonThree = UIButton()
     private let backButtonThree = UIButton()
@@ -76,6 +72,57 @@ class CreateAccountViewController: UIViewController {
     private let backToEmailThree = UIButton()
     
     
+    // Middle Four Views
+    private let middleViewFour = UIView()
+    private let topLabelFour = UILabel()
+    private let littleLabelFour = UILabel()
+    
+    private let createPasswordTextField = UITextField()
+    private let repeatPasswordTextField = UITextField()
+    
+    private let continueButtonFour = UIButton()
+    private let backButtonFour = UIButton()
+    
+    
+    
+    // Middle Five For Person
+    private let middleViewFive = UIView()
+    private let topLabelFive = UILabel()
+    
+    private let firstNameTextField = UITextField()
+    private let secondNameTextField = UITextField()
+    
+    private let dateOfBirsdayLabel = UILabel()
+    private let dateOfBirsdayTextField = UITextField()
+    
+    
+    private let sexLabel = UILabel()
+    private let toggleSexView = UIView()
+    private let menToggleButton = UIButton()
+    private let womenToggleButton = UIButton()
+    
+    private let personFinishRegisteringButton = UIButton()
+    private let backButtonFive = UIButton()
+    
+    
+    
+    // Middle Six For Company
+    private let middleViewSix = UIView()
+    private let topLabelSix = UILabel()
+    
+    private let companyNameLabel = UILabel()
+    private let companyNameTextField = UITextField()
+    
+    private let innLabel = UILabel()
+    private let innTextField = UITextField()
+    
+    
+    private let companyFinishRegisteringButton = UIButton()
+    private let backButtonSix = UIButton()
+    
+    
+    
+    
     
     
     
@@ -87,16 +134,30 @@ class CreateAccountViewController: UIViewController {
         
         setupLayout()
     }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        print("didDisappear")
+    }
+    
+    deinit {
+        print("Deinit")
+    }
 }
 
 private extension CreateAccountViewController {
+    
+    // MARK: - Setup Middle Items
     
     func setupLayout() {
         setupTopItemsLayout()
         setupMiddleItemsLayout()
         middleItemsTwo()
         middleItemsThree()
+        middleItemsFour()
+        middleItemsFive()
+        middleItemsSix()
     }
+   
     
     // MARK: - Top Items Layout
     func setupTopItemsLayout() {
@@ -262,9 +323,6 @@ private extension CreateAccountViewController {
         middleView.backgroundColor = .white
         middleView.translatesAutoresizingMaskIntoConstraints = false
         middleView.layer.cornerRadius = 20
-        
-        // MARK: - Hidden
-        
         
         
         NSLayoutConstraint.activate([
@@ -712,6 +770,593 @@ private extension CreateAccountViewController {
     }
 }
 
+
+// MARK: - Middle Items Four
+private extension CreateAccountViewController {
+    
+    
+    func middleItemsFour() {
+        middleViewFourLayout()
+        labelFourLayout()
+        littleLabelFourLayout()
+        createPasswordTextFieldLayout()
+        repeatPasswordTextFieldLayout()
+        continueButtonFourLayout()
+        backToEmailButtonFourLayout()
+    }
+    
+    
+    func middleViewFourLayout() {
+        
+        view.addSubview(middleViewFour)
+        middleViewFour.backgroundColor = .white
+        middleViewFour.translatesAutoresizingMaskIntoConstraints = false
+        middleViewFour.layer.cornerRadius = 20
+        middleViewFour.isHidden = true
+        
+        
+        NSLayoutConstraint.activate([
+            middleViewFour.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 32),
+            middleViewFour.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            middleViewFour.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            middleViewFour.heightAnchor.constraint(equalToConstant: 446)
+        ])
+        
+    }
+    
+    
+    func labelFourLayout() {
+        middleViewFour.addSubview(topLabelFour)
+        topLabelFour.translatesAutoresizingMaskIntoConstraints = false
+        topLabelFour.text = "Создание аккаунта"
+        topLabelFour.font = UIFont.boldSystemFont(ofSize: 24)
+        
+        NSLayoutConstraint.activate([
+        
+            topLabelFour.topAnchor.constraint(equalTo: middleViewFour.topAnchor, constant: 36),
+            topLabelFour.leadingAnchor.constraint(equalTo: middleViewFour.leadingAnchor, constant: 16),
+            topLabelFour.trailingAnchor.constraint(equalTo: middleViewFour.trailingAnchor, constant: -16),
+        ])
+    }
+    
+    
+    func littleLabelFourLayout() {
+        middleViewFour.addSubview(littleLabelFour)
+        littleLabelFour.translatesAutoresizingMaskIntoConstraints =  false
+        littleLabelFour.textColor = UIColor(red: 0.417, green: 0.431, blue: 0.438, alpha: 1)
+        littleLabelFour.numberOfLines = 0
+        littleLabelFour.lineBreakMode = .byWordWrapping
+        littleLabelFour.text = "Придумайте пароль (минимум 6 латинских букв и 2 цифры)"
+        
+        NSLayoutConstraint.activate([
+            littleLabelFour.topAnchor.constraint(equalTo: topLabelFour.bottomAnchor, constant: 32),
+            littleLabelFour.leadingAnchor.constraint(equalTo: middleViewFour.leadingAnchor, constant: 16),
+            littleLabelFour.trailingAnchor.constraint(equalTo: middleViewFour.trailingAnchor, constant: -16)
+        ])
+        
+    }
+    
+    
+    
+    
+    func createPasswordTextFieldLayout() {
+        middleViewFour.addSubview(createPasswordTextField)
+        createPasswordTextField.translatesAutoresizingMaskIntoConstraints = false
+        createPasswordTextField.layer.borderWidth = 1
+        createPasswordTextField.layer.borderColor = UIColor.lightGray.cgColor
+        createPasswordTextField.layer.cornerRadius = 14
+        createPasswordTextField.placeholder = "   Пароль"
+        createPasswordTextField.isSecureTextEntry = true
+        
+       
+        
+        NSLayoutConstraint.activate([
+            createPasswordTextField.topAnchor.constraint(equalTo: littleLabelFour.bottomAnchor, constant: 8),
+            createPasswordTextField.trailingAnchor.constraint(equalTo: middleViewFour.trailingAnchor, constant: -16),
+            createPasswordTextField.leadingAnchor.constraint(equalTo: middleViewFour.leadingAnchor, constant: 16),
+            createPasswordTextField.heightAnchor.constraint(equalToConstant: 54),
+            
+        ])
+    }
+    
+    func repeatPasswordTextFieldLayout() {
+        middleViewFour.addSubview(repeatPasswordTextField)
+        repeatPasswordTextField.translatesAutoresizingMaskIntoConstraints = false
+        repeatPasswordTextField.layer.borderWidth = 1
+        repeatPasswordTextField.layer.borderColor = UIColor.lightGray.cgColor
+        repeatPasswordTextField.layer.cornerRadius = 14
+        repeatPasswordTextField.placeholder = "   Повторите пароль"
+        repeatPasswordTextField.isSecureTextEntry = true
+        
+       
+        
+        NSLayoutConstraint.activate([
+            repeatPasswordTextField.topAnchor.constraint(equalTo: createPasswordTextField.bottomAnchor, constant: 12),
+            repeatPasswordTextField.trailingAnchor.constraint(equalTo: middleViewFour.trailingAnchor, constant: -16),
+            repeatPasswordTextField.leadingAnchor.constraint(equalTo: middleViewFour.leadingAnchor, constant: 16),
+            repeatPasswordTextField.heightAnchor.constraint(equalToConstant: 54),
+            
+        ])
+    }
+    
+    
+    
+    func continueButtonFourLayout() {
+        middleViewFour.addSubview(continueButtonFour)
+        continueButtonFour.backgroundColor = Colors.mainColorGreen
+        continueButtonFour.setTitle("Продолжить", for: .normal)
+        continueButtonFour.translatesAutoresizingMaskIntoConstraints = false
+        continueButtonFour.setTitleColor(.white, for: .normal)
+        continueButtonFour.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        continueButtonFour.layer.cornerRadius = 14
+        
+        NSLayoutConstraint.activate([
+            continueButtonFour.topAnchor.constraint(equalTo: repeatPasswordTextField.bottomAnchor, constant: 24),
+            continueButtonFour.leadingAnchor.constraint(equalTo: middleViewFour.leadingAnchor, constant: 16),
+            continueButtonFour.trailingAnchor.constraint(equalTo: middleViewFour.trailingAnchor, constant: -16),
+            continueButtonFour.heightAnchor.constraint(equalToConstant: 54)
+        ])
+        
+        continueButtonFour.addTarget(self, action: #selector(createPasswordAction), for: .touchUpInside)
+        
+    }
+    
+    
+    func backToEmailButtonFourLayout() {
+        middleViewFour.addSubview(backButtonFour)
+        backButtonFour.backgroundColor = .white
+        backButtonFour.setTitle("Назад", for: .normal)
+        backButtonFour.translatesAutoresizingMaskIntoConstraints = false
+        backButtonFour.setTitleColor(Colors.mainColorGreen, for: .normal)
+        backButtonFour.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        backButtonFour.layer.cornerRadius = 14
+        backButtonFour.layer.borderColor = Colors.mainColorGreen.cgColor
+        backButtonFour.layer.borderWidth = 1
+        
+        NSLayoutConstraint.activate([
+            backButtonFour.topAnchor.constraint(equalTo: continueButtonFour.bottomAnchor, constant: 12),
+            backButtonFour.leadingAnchor.constraint(equalTo: middleViewFour.leadingAnchor, constant: 16),
+            backButtonFour.trailingAnchor.constraint(equalTo: middleViewFour.trailingAnchor, constant: -16),
+            backButtonFour.heightAnchor.constraint(equalToConstant: 54)
+        ])
+        
+        backButtonFour.addTarget(self, action: #selector(backButtonThreeAction), for: .touchUpInside)
+        
+    }
+}
+
+
+
+// MARK: - Middle Items Five (Person)
+private extension CreateAccountViewController {
+    
+    
+    func middleItemsFive() {
+        middleViewFiveLayout()
+        topLabelFiveLayout()
+        
+        firstNameTextFieldLayout()
+        secondNameTextFieldLayout()
+        
+        dateOfBirsdayLabelLayout()
+        dateOfBirsdayTextFieldLayout()
+        
+        sexLabelLayout()
+        toggleSexViewLayout()
+        menToggleButtonLayout()
+        womenToggleButtonLayout()
+        
+        finishRegisteringButtonLayout()
+        backButtonFiveLayout()
+    }
+    
+    
+    func middleViewFiveLayout() {
+        
+        view.addSubview(middleViewFive)
+        middleViewFive.backgroundColor = .white
+        middleViewFive.translatesAutoresizingMaskIntoConstraints = false
+        middleViewFive.layer.cornerRadius = 20
+        middleViewFive.isHidden = true
+        
+        
+        NSLayoutConstraint.activate([
+            middleViewFive.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 32),
+            middleViewFive.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            middleViewFive.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            middleViewFive.heightAnchor.constraint(equalToConstant: 586)
+        ])
+        
+    }
+    
+    
+    func topLabelFiveLayout() {
+        middleViewFive.addSubview(topLabelFive)
+        topLabelFive.translatesAutoresizingMaskIntoConstraints = false
+        topLabelFive.text = "Создание аккаунта"
+        topLabelFive.font = UIFont.boldSystemFont(ofSize: 24)
+        
+        NSLayoutConstraint.activate([
+        
+            topLabelFive.topAnchor.constraint(equalTo: middleViewFive.topAnchor, constant: 36),
+            topLabelFive.leadingAnchor.constraint(equalTo: middleViewFive.leadingAnchor, constant: 16),
+            topLabelFive.trailingAnchor.constraint(equalTo: middleViewFive.trailingAnchor, constant: -16),
+        ])
+    }
+    
+    
+    func firstNameTextFieldLayout() {
+        middleViewFive.addSubview(firstNameTextField)
+        firstNameTextField.translatesAutoresizingMaskIntoConstraints = false
+        firstNameTextField.layer.borderWidth = 1
+        firstNameTextField.layer.borderColor = UIColor.lightGray.cgColor
+        firstNameTextField.layer.cornerRadius = 14
+        firstNameTextField.placeholder = "   Имя"
+        
+       
+        
+        NSLayoutConstraint.activate([
+            firstNameTextField.topAnchor.constraint(equalTo: topLabelFive.bottomAnchor, constant: 32),
+            firstNameTextField.trailingAnchor.constraint(equalTo: middleViewFive.trailingAnchor, constant: -16),
+            firstNameTextField.leadingAnchor.constraint(equalTo: middleViewFive.leadingAnchor, constant: 16),
+            firstNameTextField.heightAnchor.constraint(equalToConstant: 54),
+            
+        ])
+    }
+    
+    func secondNameTextFieldLayout() {
+        middleViewFive.addSubview(secondNameTextField)
+        secondNameTextField.translatesAutoresizingMaskIntoConstraints = false
+        secondNameTextField.layer.borderWidth = 1
+        secondNameTextField.layer.borderColor = UIColor.lightGray.cgColor
+        secondNameTextField.layer.cornerRadius = 14
+        secondNameTextField.placeholder = "   Фамилия"
+        
+       
+        
+        NSLayoutConstraint.activate([
+            secondNameTextField.topAnchor.constraint(equalTo: firstNameTextField.bottomAnchor, constant: 12),
+            secondNameTextField.trailingAnchor.constraint(equalTo: middleViewFive.trailingAnchor, constant: -16),
+            secondNameTextField.leadingAnchor.constraint(equalTo: middleViewFive.leadingAnchor, constant: 16),
+            secondNameTextField.heightAnchor.constraint(equalToConstant: 54),
+            
+        ])
+    }
+    
+    func dateOfBirsdayLabelLayout() {
+        middleViewFive.addSubview(dateOfBirsdayLabel)
+        dateOfBirsdayLabel.translatesAutoresizingMaskIntoConstraints = false
+        dateOfBirsdayLabel.text = "Введите дату рождения"
+        dateOfBirsdayLabel.font = UIFont.systemFont(ofSize: 14)
+        dateOfBirsdayLabel.textColor = .systemGray
+        
+        NSLayoutConstraint.activate([
+        
+            dateOfBirsdayLabel.topAnchor.constraint(equalTo: secondNameTextField.bottomAnchor, constant: 12),
+            dateOfBirsdayLabel.leadingAnchor.constraint(equalTo: middleViewFive.leadingAnchor, constant: 16),
+            dateOfBirsdayLabel.trailingAnchor.constraint(equalTo: middleViewFive.trailingAnchor, constant: -16),
+        ])
+    }
+    
+    func dateOfBirsdayTextFieldLayout() {
+        middleViewFive.addSubview(dateOfBirsdayTextField)
+        dateOfBirsdayTextField.translatesAutoresizingMaskIntoConstraints = false
+        dateOfBirsdayTextField.layer.borderWidth = 1
+        dateOfBirsdayTextField.layer.borderColor = UIColor.lightGray.cgColor
+        dateOfBirsdayTextField.layer.cornerRadius = 14
+        dateOfBirsdayTextField.placeholder = "   ДД.ММ.ГГГГ"
+        
+       
+        
+        NSLayoutConstraint.activate([
+            dateOfBirsdayTextField.topAnchor.constraint(equalTo: dateOfBirsdayLabel.bottomAnchor, constant: 8),
+            dateOfBirsdayTextField.trailingAnchor.constraint(equalTo: middleViewFive.trailingAnchor, constant: -16),
+            dateOfBirsdayTextField.leadingAnchor.constraint(equalTo: middleViewFive.leadingAnchor, constant: 16),
+            dateOfBirsdayTextField.heightAnchor.constraint(equalToConstant: 54),
+            
+        ])
+    }
+    
+    func sexLabelLayout() {
+        middleViewFive.addSubview(sexLabel)
+        sexLabel.translatesAutoresizingMaskIntoConstraints = false
+        sexLabel.text = "Выберите пол"
+        sexLabel.font = UIFont.systemFont(ofSize: 14)
+        sexLabel.textColor = .systemGray
+        
+        NSLayoutConstraint.activate([
+        
+            sexLabel.topAnchor.constraint(equalTo: dateOfBirsdayTextField.bottomAnchor, constant: 12),
+            sexLabel.leadingAnchor.constraint(equalTo: middleViewFive.leadingAnchor, constant: 16),
+            sexLabel.trailingAnchor.constraint(equalTo: middleViewFive.trailingAnchor, constant: -16),
+        ])
+    }
+    
+    
+    func toggleSexViewLayout() {
+        middleViewFive.addSubview(toggleSexView)
+        toggleSexView.translatesAutoresizingMaskIntoConstraints = false
+        toggleSexView.layer.borderWidth = 1
+        toggleSexView.layer.borderColor = UIColor(red: 0.832, green: 0.862, blue: 0.871, alpha: 1).cgColor
+        toggleSexView.layer.cornerRadius = 14
+        
+        NSLayoutConstraint.activate([
+            toggleSexView.topAnchor.constraint(equalTo: sexLabel.bottomAnchor, constant: 8),
+            toggleSexView.leadingAnchor.constraint(equalTo: middleViewFive.leadingAnchor, constant: 16),
+            toggleSexView.trailingAnchor.constraint(equalTo: middleViewFive.trailingAnchor, constant: -16),
+            toggleSexView.heightAnchor.constraint(equalToConstant: 54)
+        ])
+    }
+    
+    func menToggleButtonLayout() {
+        
+        toggleSexView.addSubview(menToggleButton)
+        menToggleButton.translatesAutoresizingMaskIntoConstraints = false
+        menToggleButton.setTitle("Мужской", for: .normal)
+        menToggleButton.backgroundColor = Colors.buttonGray
+        menToggleButton.setTitleColor(.black, for: .normal)
+        menToggleButton.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        menToggleButton.layer.cornerRadius = 10
+        
+        NSLayoutConstraint.activate([
+            menToggleButton.topAnchor.constraint(equalTo: toggleSexView.topAnchor, constant: 4),
+            menToggleButton.leadingAnchor.constraint(equalTo: toggleSexView.leadingAnchor, constant: 4),
+            menToggleButton.trailingAnchor.constraint(equalTo: toggleSexView.centerXAnchor),
+            menToggleButton.bottomAnchor.constraint(equalTo: toggleSexView.bottomAnchor, constant: -4)
+        ])
+        
+        menToggleButton.addTarget(self, action: #selector(menToggleButtonAction), for: .touchUpInside)
+        
+    }
+    
+    func womenToggleButtonLayout() {
+        
+        toggleSexView.addSubview(womenToggleButton)
+        womenToggleButton.translatesAutoresizingMaskIntoConstraints = false
+        womenToggleButton.setTitle("Ищу сотрудников", for: .normal)
+        womenToggleButton.backgroundColor = .clear
+        womenToggleButton.setTitleColor(.lightGray, for: .normal)
+        womenToggleButton.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        womenToggleButton.layer.cornerRadius = 10
+        
+        NSLayoutConstraint.activate([
+            womenToggleButton.topAnchor.constraint(equalTo: toggleSexView.topAnchor, constant: 4),
+            womenToggleButton.trailingAnchor.constraint(equalTo: toggleSexView.trailingAnchor, constant: -4),
+            womenToggleButton.leadingAnchor.constraint(equalTo: toggleSexView.centerXAnchor),
+            womenToggleButton.bottomAnchor.constraint(equalTo: toggleSexView.bottomAnchor, constant: -4)
+        ])
+        
+        womenToggleButton.addTarget(self, action: #selector(womenToggleButtonAction), for: .touchUpInside)
+        
+    }
+    
+    
+    func finishRegisteringButtonLayout() {
+        middleViewFive.addSubview(personFinishRegisteringButton)
+        personFinishRegisteringButton.backgroundColor = Colors.mainColorGreen
+        personFinishRegisteringButton.setTitle("Завершить регистрацию", for: .normal)
+        personFinishRegisteringButton.translatesAutoresizingMaskIntoConstraints = false
+        personFinishRegisteringButton.setTitleColor(.white, for: .normal)
+        personFinishRegisteringButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        personFinishRegisteringButton.layer.cornerRadius = 14
+        
+        NSLayoutConstraint.activate([
+            personFinishRegisteringButton.topAnchor.constraint(equalTo: toggleSexView.bottomAnchor, constant: 24),
+            personFinishRegisteringButton.leadingAnchor.constraint(equalTo: middleViewFive.leadingAnchor, constant: 16),
+            personFinishRegisteringButton.trailingAnchor.constraint(equalTo: middleViewFive.trailingAnchor, constant: -16),
+            personFinishRegisteringButton.heightAnchor.constraint(equalToConstant: 54)
+        ])
+        
+        personFinishRegisteringButton.addTarget(self, action: #selector(finishRegisteringButtonAction), for: .touchUpInside)
+        
+    }
+    
+    
+    func backButtonFiveLayout() {
+        middleViewFive.addSubview(backButtonFive)
+        backButtonFive.backgroundColor = .white
+        backButtonFive.setTitle("Назад", for: .normal)
+        backButtonFive.translatesAutoresizingMaskIntoConstraints = false
+        backButtonFive.setTitleColor(Colors.mainColorGreen, for: .normal)
+        backButtonFive.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        backButtonFive.layer.cornerRadius = 14
+        backButtonFive.layer.borderColor = Colors.mainColorGreen.cgColor
+        backButtonFive.layer.borderWidth = 1
+        
+        NSLayoutConstraint.activate([
+            backButtonFive.topAnchor.constraint(equalTo: personFinishRegisteringButton.bottomAnchor, constant: 12),
+            backButtonFive.leadingAnchor.constraint(equalTo: middleViewFive.leadingAnchor, constant: 16),
+            backButtonFive.trailingAnchor.constraint(equalTo: middleViewFive.trailingAnchor, constant: -16),
+            backButtonFive.heightAnchor.constraint(equalToConstant: 54)
+        ])
+        
+//        backButtonFive.addTarget(self, action: #selector(backButtonFiveAction), for: .touchUpInside)
+//
+    }
+}
+
+//private let middleViewSix = UIView()
+//private let topLabelSix = UILabel()
+//
+//private let companyNameLabel = UILabel()
+//private let companyNameTextField = UITextField()
+//
+//private let innLabel = UILabel()
+//private let innTextField = UITextField()
+//
+//
+//private let companyFinishRegisteringButton = UIButton()
+//private let backButtonSix = UIButton()
+
+// MARK: - Middle Items Six (Company)
+private extension CreateAccountViewController {
+    
+    
+    func middleItemsSix() {
+        middleViewSixLayout()
+        topLabelSixLayout()
+        
+        companyNameLabelLayout()
+        companyNameTextFieldLayout()
+        
+        innLabelLayout()
+        innTextFieldLayout()
+        
+        companyFinishRegisteringButtonLayout()
+        backButtonSixLayout()
+    }
+    
+    
+    func middleViewSixLayout() {
+        
+        view.addSubview(middleViewSix)
+        middleViewSix.backgroundColor = .white
+        middleViewSix.translatesAutoresizingMaskIntoConstraints = false
+        middleViewSix.layer.cornerRadius = 20
+        middleViewSix.isHidden = true
+        
+        
+        NSLayoutConstraint.activate([
+            middleViewSix.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 32),
+            middleViewSix.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            middleViewSix.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            middleViewSix.heightAnchor.constraint(equalToConstant: 450)
+        ])
+        
+    }
+    
+    
+    func topLabelSixLayout() {
+        middleViewSix.addSubview(topLabelSix)
+        topLabelSix.translatesAutoresizingMaskIntoConstraints = false
+        topLabelSix.text = "Создание аккаунта"
+        topLabelSix.font = UIFont.boldSystemFont(ofSize: 24)
+        
+        NSLayoutConstraint.activate([
+        
+            topLabelSix.topAnchor.constraint(equalTo: middleViewSix.topAnchor, constant: 36),
+            topLabelSix.leadingAnchor.constraint(equalTo: middleViewSix.leadingAnchor, constant: 16),
+            topLabelSix.trailingAnchor.constraint(equalTo: middleViewSix.trailingAnchor, constant: -16),
+        ])
+    }
+    
+    
+    func companyNameLabelLayout() {
+        middleViewSix.addSubview(companyNameLabel)
+        companyNameLabel.translatesAutoresizingMaskIntoConstraints = false
+        companyNameLabel.text = "Введите название компании"
+        companyNameLabel.font = UIFont.systemFont(ofSize: 14)
+        companyNameLabel.textColor = .systemGray
+        
+        NSLayoutConstraint.activate([
+        
+            companyNameLabel.topAnchor.constraint(equalTo: topLabelSix.bottomAnchor, constant: 32),
+            companyNameLabel.leadingAnchor.constraint(equalTo: middleViewSix.leadingAnchor, constant: 16),
+            companyNameLabel.trailingAnchor.constraint(equalTo: middleViewSix.trailingAnchor, constant: -16),
+        ])
+    }
+    
+    
+    func companyNameTextFieldLayout() {
+        middleViewSix.addSubview(companyNameTextField)
+        companyNameTextField.translatesAutoresizingMaskIntoConstraints = false
+        companyNameTextField.layer.borderWidth = 1
+        companyNameTextField.layer.borderColor = UIColor.lightGray.cgColor
+        companyNameTextField.layer.cornerRadius = 14
+        companyNameTextField.placeholder = "   Название компании"
+        
+       
+        
+        NSLayoutConstraint.activate([
+            companyNameTextField.topAnchor.constraint(equalTo: companyNameLabel.bottomAnchor, constant: 8),
+            companyNameTextField.trailingAnchor.constraint(equalTo: middleViewSix.trailingAnchor, constant: -16),
+            companyNameTextField.leadingAnchor.constraint(equalTo: middleViewSix.leadingAnchor, constant: 16),
+            companyNameTextField.heightAnchor.constraint(equalToConstant: 54),
+            
+        ])
+    }
+    
+    func innLabelLayout() {
+        middleViewSix.addSubview(innLabel)
+        innLabel.translatesAutoresizingMaskIntoConstraints = false
+        innLabel.text = "Введите ИНН"
+        innLabel.font = UIFont.systemFont(ofSize: 14)
+        innLabel.textColor = .systemGray
+        
+        NSLayoutConstraint.activate([
+        
+            innLabel.topAnchor.constraint(equalTo: companyNameTextField.bottomAnchor, constant: 12),
+            innLabel.leadingAnchor.constraint(equalTo: middleViewSix.leadingAnchor, constant: 16),
+            innLabel.trailingAnchor.constraint(equalTo: middleViewSix.trailingAnchor, constant: -16),
+        ])
+    }
+    
+    
+    func innTextFieldLayout() {
+        middleViewSix.addSubview(innTextField)
+        innTextField.translatesAutoresizingMaskIntoConstraints = false
+        innTextField.layer.borderWidth = 1
+        innTextField.layer.borderColor = UIColor.lightGray.cgColor
+        innTextField.layer.cornerRadius = 14
+        innTextField.placeholder = "   000000000000"
+        
+       
+        
+        NSLayoutConstraint.activate([
+            innTextField.topAnchor.constraint(equalTo: innLabel.bottomAnchor, constant: 8),
+            innTextField.trailingAnchor.constraint(equalTo: middleViewSix.trailingAnchor, constant: -16),
+            innTextField.leadingAnchor.constraint(equalTo: middleViewSix.leadingAnchor, constant: 16),
+            innTextField.heightAnchor.constraint(equalToConstant: 54),
+            
+        ])
+    }
+    
+    
+    
+    func companyFinishRegisteringButtonLayout() {
+        middleViewSix.addSubview(companyFinishRegisteringButton)
+        companyFinishRegisteringButton.backgroundColor = Colors.mainColorGreen
+        companyFinishRegisteringButton.setTitle("Завершить регистрацию", for: .normal)
+        companyFinishRegisteringButton.translatesAutoresizingMaskIntoConstraints = false
+        companyFinishRegisteringButton.setTitleColor(.white, for: .normal)
+        companyFinishRegisteringButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        companyFinishRegisteringButton.layer.cornerRadius = 14
+        
+        NSLayoutConstraint.activate([
+            companyFinishRegisteringButton.topAnchor.constraint(equalTo: innTextField.bottomAnchor, constant: 24),
+            companyFinishRegisteringButton.leadingAnchor.constraint(equalTo: middleViewSix.leadingAnchor, constant: 16),
+            companyFinishRegisteringButton.trailingAnchor.constraint(equalTo: middleViewSix.trailingAnchor, constant: -16),
+            companyFinishRegisteringButton.heightAnchor.constraint(equalToConstant: 54)
+        ])
+        
+        companyFinishRegisteringButton.addTarget(self, action: #selector(finishRegisteringButtonAction), for: .touchUpInside)
+        
+    }
+    
+    
+    func backButtonSixLayout() {
+        middleViewSix.addSubview(backButtonSix)
+        backButtonSix.backgroundColor = .white
+        backButtonSix.setTitle("Назад", for: .normal)
+        backButtonSix.translatesAutoresizingMaskIntoConstraints = false
+        backButtonSix.setTitleColor(Colors.mainColorGreen, for: .normal)
+        backButtonSix.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        backButtonSix.layer.cornerRadius = 14
+        backButtonSix.layer.borderColor = Colors.mainColorGreen.cgColor
+        backButtonSix.layer.borderWidth = 1
+        
+        NSLayoutConstraint.activate([
+            backButtonSix.topAnchor.constraint(equalTo: companyFinishRegisteringButton.bottomAnchor, constant: 12),
+            backButtonSix.leadingAnchor.constraint(equalTo: middleViewSix.leadingAnchor, constant: 16),
+            backButtonSix.trailingAnchor.constraint(equalTo: middleViewSix.trailingAnchor, constant: -16),
+            backButtonSix.heightAnchor.constraint(equalToConstant: 54)
+        ])
+        
+//        backButtonFive.addTarget(self, action: #selector(backButtonFiveAction), for: .touchUpInside)
+//
+    }
+}
+
 // MARK: - Buttons Action
 private extension CreateAccountViewController {
     @objc func leadingToggleButtonAction() {
@@ -737,31 +1382,57 @@ private extension CreateAccountViewController {
         dismiss(animated: true)
     }
     
+    // Continue to Enteryng Mail
     @objc func continueButtonAction() {
         middleView.isHidden = true
         middleViewTwo.isHidden = false
     }
     
+    // Back to change person or company
     @objc func backToEmailButtonAction() {
         middleView.isHidden = false
         middleViewTwo.isHidden = true
     }
     
-    
+    // Continue to entering code from email
     @objc func continueButtonTwoAction() {
         middleViewTwo.isHidden = true
         middleViewThree.isHidden = false
+        
+//        showMail()
+          
     }
+    
+//    func showMail() {
+//        if MFMailComposeViewController.canSendMail() {
+//             let mail = MFMailComposeViewController()
+//             mail.mailComposeDelegate = self
+//             mail.setToRecipients(["mail"])
+//             mail.setSubject("Any Subject")
+//             mail.setMessageBody("You're so awesome!", isHTML: false)
+//             present(mail, animated: true)
+//        }else{
+//            print("Application is not able to send an email")
+//        }
+//
+//    }
+    
+    // Back to entering mail
     
     @objc func backToEmailButtonTwoAction() {
         middleViewTwo.isHidden = false
         middleViewThree.isHidden = true
+        emailTextFieldThree.text = ""
     }
     
     
+    // Continue to entering password
     @objc func continueButtonThreeAction() {
         if emailTextFieldThree.text == CodeRegister.code.codeRegister {
-            print("Yes")
+            emailTextFieldThree.text = ""
+            middleViewThree.isHidden = true
+            middleViewFour.isHidden = false
+            
         }else {
             emailTextFieldThree.layer.borderColor = UIColor.systemRed.cgColor
             
@@ -772,7 +1443,81 @@ private extension CreateAccountViewController {
             }
         }
     }
+    
+    
+    // Back from entering password to entering mail
+    @objc func backButtonThreeAction() {
+        middleViewTwo.isHidden = false
+        middleViewFour.isHidden = true
+    }
+    
+    
+    // Continue to Finish Account
+    @objc func createPasswordAction() {
+        if createPasswordTextField.text != repeatPasswordTextField.text {
+            createPasswordTextField.layer.borderColor = UIColor.systemRed.cgColor
+            repeatPasswordTextField.layer.borderColor = UIColor.systemRed.cgColor
+            littleLabelFour.text = "Пароли не совпадают"
+        }else {
+            if isLeftActive {
+                middleViewFive.isHidden = false
+                middleViewFour.isHidden = true
+            }else {
+                middleViewSix.isHidden = false
+                middleViewFour.isHidden = true
+            }
+        }
+    }
+    
+    
+    @objc func menToggleButtonAction() {
+        
+        womenToggleButton.backgroundColor = .clear
+        womenToggleButton.setTitleColor(.lightGray, for: .normal)
+        menToggleButton.backgroundColor = Colors.buttonGray
+        menToggleButton.setTitleColor(.black, for: .normal)
+        isMenActive = true
+    }
+    
+    @objc func womenToggleButtonAction() {
+        
+        menToggleButton.backgroundColor = .clear
+        menToggleButton.setTitleColor(.lightGray, for: .normal)
+        womenToggleButton.backgroundColor = Colors.buttonGray
+        womenToggleButton.setTitleColor(.black, for: .normal)
+        isMenActive = false
+    }
+    
+    
+    @objc func finishRegisteringButtonAction() {
+        
+        dismiss(animated: true)
+        
+        
+    }
 }
+
+//extension CreateAccountViewController: MFMailComposeViewControllerDelegate {
+//    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+//        if let _ = error {
+//            controller.dismiss(animated: true)
+//            return
+//        }
+//
+//        switch result {
+//        case .cancelled:
+//            print("Cancelled")
+//        case .failed:
+//            print("Failed")
+//        case .saved:
+//            print("Saved")
+//        case .sent:
+//            print("Sent")
+//        }
+//
+//        controller.dismiss(animated: true)
+//    }
+//}
 
 // MARK: - Time Inteval
 
