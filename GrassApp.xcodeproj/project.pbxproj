@@ -14,6 +14,9 @@
 		3BC274092ABB0DD100011F1E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3BC274082ABB0DD100011F1E /* Assets.xcassets */; };
 		3BC2740C2ABB0DD100011F1E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3BC2740A2ABB0DD100011F1E /* LaunchScreen.storyboard */; };
 		3BC274142ABB73E300011F1E /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC274132ABB73E300011F1E /* Colors.swift */; };
+		3BDE687E2AC0895C001E956D /* RegisterTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDE687D2AC0895C001E956D /* RegisterTextField.swift */; };
+		3BDE68802AC09495001E956D /* UIViewCintroller+Extention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDE687F2AC09495001E956D /* UIViewCintroller+Extention.swift */; };
+		3BDE68832AC09884001E956D /* SetupButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDE68822AC09884001E956D /* SetupButton.swift */; };
 		3BE41FCD2ABB80BB007B562B /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE41FCC2ABB80BB007B562B /* ViewModel.swift */; };
 		3BE41FD22ABB8226007B562B /* String+Extention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE41FD12ABB8226007B562B /* String+Extention.swift */; };
 		3BE41FD62ABC5B7F007B562B /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE41FD52ABC5B7F007B562B /* HomeViewController.swift */; };
@@ -30,6 +33,9 @@
 		3BC2740B2ABB0DD100011F1E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3BC2740D2ABB0DD100011F1E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3BC274132ABB73E300011F1E /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		3BDE687D2AC0895C001E956D /* RegisterTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterTextField.swift; sourceTree = "<group>"; };
+		3BDE687F2AC09495001E956D /* UIViewCintroller+Extention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewCintroller+Extention.swift"; sourceTree = "<group>"; };
+		3BDE68822AC09884001E956D /* SetupButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupButton.swift; sourceTree = "<group>"; };
 		3BE41FCC2ABB80BB007B562B /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		3BE41FD12ABB8226007B562B /* String+Extention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extention.swift"; sourceTree = "<group>"; };
 		3BE41FD52ABC5B7F007B562B /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -78,9 +84,19 @@
 			path = GrassApp;
 			sourceTree = "<group>";
 		};
+		3BDE68812AC09858001E956D /* PersonalViews */ = {
+			isa = PBXGroup;
+			children = (
+				3BDE687D2AC0895C001E956D /* RegisterTextField.swift */,
+				3BDE68822AC09884001E956D /* SetupButton.swift */,
+			);
+			path = PersonalViews;
+			sourceTree = "<group>";
+		};
 		3BE41FC92ABB80A7007B562B /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				3BDE68812AC09858001E956D /* PersonalViews */,
 				3BE41FD02ABB8211007B562B /* Extentions */,
 				3BE41FCC2ABB80BB007B562B /* ViewModel.swift */,
 			);
@@ -91,6 +107,7 @@
 			isa = PBXGroup;
 			children = (
 				3BE41FD12ABB8226007B562B /* String+Extention.swift */,
+				3BDE687F2AC09495001E956D /* UIViewCintroller+Extention.swift */,
 			);
 			path = Extentions;
 			sourceTree = "<group>";
@@ -186,7 +203,10 @@
 			files = (
 				3BC274042ABB0DD000011F1E /* RegistrationViewController.swift in Sources */,
 				3BE41FD22ABB8226007B562B /* String+Extention.swift in Sources */,
+				3BDE687E2AC0895C001E956D /* RegisterTextField.swift in Sources */,
+				3BDE68802AC09495001E956D /* UIViewCintroller+Extention.swift in Sources */,
 				3BC274142ABB73E300011F1E /* Colors.swift in Sources */,
+				3BDE68832AC09884001E956D /* SetupButton.swift in Sources */,
 				3BC274002ABB0DD000011F1E /* AppDelegate.swift in Sources */,
 				3BE41FD82ABC85EB007B562B /* CreateAccountViewController.swift in Sources */,
 				3BE41FCD2ABB80BB007B562B /* ViewModel.swift in Sources */,

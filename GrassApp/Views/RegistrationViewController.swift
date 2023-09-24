@@ -25,14 +25,15 @@ class RegistrationViewController: UIViewController {
     
     
     //Middle Views
+    private var containerStackView =  UIStackView()
     
     private let middleView = UIView()
     private let label = UILabel()
-    private let loginTextField = UITextField()
-    private let passwordTextField = UITextField()
+    private let loginTextField = RegisterTextField(placeholder: "Электронная почта")
+    private let passwordTextField = RegisterTextField(placeholder: "Пароль")
     private let noRememberPass = UIButton()
-    private let loginButton = UIButton()
-    private let createAccountButton = UIButton()
+    private let loginButton = SetupButton(text: "Войти", typeButton: .green)
+    private let createAccountButton = SetupButton(text: "Создать аккаунт", typeButton: .white)
     
     private let googleImage = UIImageView()
     private let googleButton = UIButton()
@@ -46,16 +47,12 @@ class RegistrationViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         view.backgroundColor = Colors.backgroundColor
+        self.hideNavigationBar()
         
         setupLayout()
         bindViewModel()
         
     }
-    
-    deinit {
-        print("deinit")
-    }
-
 
 }
 
@@ -86,7 +83,6 @@ private extension RegistrationViewController {
         view.addSubview(topView)
         topView.backgroundColor = Colors.mainColorGreen
         topView.translatesAutoresizingMaskIntoConstraints = false
-        
         
         NSLayoutConstraint.activate([
             topView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -261,13 +257,6 @@ private extension RegistrationViewController {
     
     func loginTextFieldLayout() {
         middleView.addSubview(loginTextField)
-        loginTextField.translatesAutoresizingMaskIntoConstraints = false
-        loginTextField.layer.borderWidth = 1
-        loginTextField.layer.borderColor = UIColor.lightGray.cgColor
-        loginTextField.layer.cornerRadius = 14
-        loginTextField.placeholder = "   Электронная почта"
-        
-       
         
         NSLayoutConstraint.activate([
             loginTextField.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 32),
@@ -281,12 +270,6 @@ private extension RegistrationViewController {
     
     func passwordTextFieldLayout() {
         middleView.addSubview(passwordTextField)
-        passwordTextField.translatesAutoresizingMaskIntoConstraints = false
-        
-        passwordTextField.layer.borderWidth = 1
-        passwordTextField.layer.borderColor = UIColor.lightGray.cgColor
-        passwordTextField.layer.cornerRadius = 14
-        passwordTextField.placeholder = "   Пароль"
         passwordTextField.isSecureTextEntry = true
        
         
@@ -314,12 +297,6 @@ private extension RegistrationViewController {
     
     func loginButtonLayout() {
         middleView.addSubview(loginButton)
-        loginButton.translatesAutoresizingMaskIntoConstraints = false
-        loginButton.setTitle("Войти", for: .normal)
-        loginButton.setTitleColor(.white, for: .normal)
-        loginButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
-        loginButton.backgroundColor = Colors.mainColorGreen
-        loginButton.layer.cornerRadius = 14
         
         NSLayoutConstraint.activate([
             loginButton.leadingAnchor.constraint(equalTo: middleView.leadingAnchor, constant: 16),
@@ -335,14 +312,6 @@ private extension RegistrationViewController {
     
     func createAccountButtonLayout() {
         middleView.addSubview(createAccountButton)
-        createAccountButton.translatesAutoresizingMaskIntoConstraints = false
-        createAccountButton.setTitle("Создать аккаунт", for: .normal)
-        createAccountButton.setTitleColor(Colors.mainColorGreen, for: .normal)
-        createAccountButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
-        createAccountButton.backgroundColor = .white
-        createAccountButton.layer.cornerRadius = 14
-        createAccountButton.layer.borderColor = Colors.mainColorGreen.cgColor
-        createAccountButton.layer.borderWidth = 1
         
         NSLayoutConstraint.activate([
             createAccountButton.leadingAnchor.constraint(equalTo: middleView.leadingAnchor, constant: 16),
@@ -469,7 +438,8 @@ private extension RegistrationViewController {
     @objc func createAccountButtonAction() {
         let createAccountViewController = CreateAccountViewController()
         createAccountViewController.modalPresentationStyle = .fullScreen
-        present(createAccountViewController, animated: true)
+        navigationController?.pushViewController(createAccountViewController, animated: true)
+        
     }
     
     
