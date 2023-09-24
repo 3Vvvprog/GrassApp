@@ -302,7 +302,7 @@ private extension RegistrationViewController {
         middleView.addSubview(noRememberPass)
         noRememberPass.translatesAutoresizingMaskIntoConstraints = false
         noRememberPass.setTitle("Не помню пароль", for: .normal)
-        noRememberPass.setTitleColor(Colors.lightGreen, for: .normal)
+        noRememberPass.setTitleColor(Colors.mainColorGreen, for: .normal)
         noRememberPass.titleLabel?.font = UIFont(name: "Gilroy-Medium", size: 16)
         
         NSLayoutConstraint.activate([
@@ -436,6 +436,9 @@ private extension RegistrationViewController {
 }
 
 
+
+// MARK: - Buttons Action
+
 private extension RegistrationViewController {
     @objc func userConfigButtonAction() {
         if view.backgroundColor == .black {
@@ -474,6 +477,8 @@ private extension RegistrationViewController {
 
 
 
+// MARK: ViewModel Binding
+
 private extension RegistrationViewController {
     func bindViewModel() {
         NotificationCenter.default
@@ -499,7 +504,7 @@ private extension RegistrationViewController {
                 if self.loginButton.isEnabled {
                     self.loginButton.backgroundColor = Colors.mainColorGreen
                 }else {
-                    self.loginButton.backgroundColor = Colors.lightGreen
+                    self.loginButton.backgroundColor = Colors.mainColorGreen
                 }
                 
             })

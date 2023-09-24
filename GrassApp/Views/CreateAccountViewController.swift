@@ -50,9 +50,30 @@ class CreateAccountViewController: UIViewController {
     private let continueButtonTwo = UIButton()
     private let backButtonTwo = UIButton()
     
-    private let emailTextField = UITextField()
-    private let takeCodeButton = UIButton()
-    private let backToEmail = UIButton()
+    private let emailTextFieldTwo = UITextField()
+    private let takeCodeButtonTwo = UIButton()
+    private let backToEmailTwo = UIButton()
+    
+    
+    // Middle Three Views
+    private let middleViewThree = UIView()
+    private let topLabelThree = UILabel()
+    private let littleLabelThree = UILabel()
+    private let toggleViewThree = UIView()
+    private let leadingToggleButtonThree = UIButton()
+    private let trailingToggleButtonThree = UIButton()
+    
+    private let continueButtonThree = UIButton()
+    private let backButtonThree = UIButton()
+    
+    private let emailTextFieldThree = UITextField()
+    private let codeTimeLeftLabel = UILabel()
+    private var timer: Timer?
+    private var timeInterval: TimeInterval = 5
+    private var isTimerActive = true
+    private let takeCodeAgain = UIButton()
+    private let takeCodeButtonThree = UIButton()
+    private let backToEmailThree = UIButton()
     
     
     
@@ -74,6 +95,7 @@ private extension CreateAccountViewController {
         setupTopItemsLayout()
         setupMiddleItemsLayout()
         middleItemsTwo()
+        middleItemsThree()
     }
     
     // MARK: - Top Items Layout
@@ -457,64 +479,238 @@ private extension CreateAccountViewController {
     
     
     func loginTextFieldLayout() {
-        middleViewTwo.addSubview(emailTextField)
-        emailTextField.translatesAutoresizingMaskIntoConstraints = false
-        emailTextField.layer.borderWidth = 1
-        emailTextField.layer.borderColor = UIColor.lightGray.cgColor
-        emailTextField.layer.cornerRadius = 14
-        emailTextField.placeholder = "   Электронная почта"
+        middleViewTwo.addSubview(emailTextFieldTwo)
+        emailTextFieldTwo.translatesAutoresizingMaskIntoConstraints = false
+        emailTextFieldTwo.layer.borderWidth = 1
+        emailTextFieldTwo.layer.borderColor = UIColor.lightGray.cgColor
+        emailTextFieldTwo.layer.cornerRadius = 14
+        emailTextFieldTwo.placeholder = "   Электронная почта"
         
        
         
         NSLayoutConstraint.activate([
-            emailTextField.topAnchor.constraint(equalTo: littleLabelTwo.bottomAnchor, constant: 8),
-            emailTextField.trailingAnchor.constraint(equalTo: middleViewTwo.trailingAnchor, constant: -16),
-            emailTextField.leadingAnchor.constraint(equalTo: middleViewTwo.leadingAnchor, constant: 16),
-            emailTextField.heightAnchor.constraint(equalToConstant: 54),
+            emailTextFieldTwo.topAnchor.constraint(equalTo: littleLabelTwo.bottomAnchor, constant: 8),
+            emailTextFieldTwo.trailingAnchor.constraint(equalTo: middleViewTwo.trailingAnchor, constant: -16),
+            emailTextFieldTwo.leadingAnchor.constraint(equalTo: middleViewTwo.leadingAnchor, constant: 16),
+            emailTextFieldTwo.heightAnchor.constraint(equalToConstant: 54),
             
         ])
     }
     
     func takeCodeButtonLayout() {
-        middleViewTwo.addSubview(takeCodeButton)
-        takeCodeButton.backgroundColor = Colors.mainColorGreen
-        takeCodeButton.setTitle("Получить код", for: .normal)
-        takeCodeButton.translatesAutoresizingMaskIntoConstraints = false
-        takeCodeButton.setTitleColor(.white, for: .normal)
-        takeCodeButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
-        takeCodeButton.layer.cornerRadius = 14
+        middleViewTwo.addSubview(takeCodeButtonTwo)
+        takeCodeButtonTwo.backgroundColor = Colors.mainColorGreen
+        takeCodeButtonTwo.setTitle("Получить код", for: .normal)
+        takeCodeButtonTwo.translatesAutoresizingMaskIntoConstraints = false
+        takeCodeButtonTwo.setTitleColor(.white, for: .normal)
+        takeCodeButtonTwo.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        takeCodeButtonTwo.layer.cornerRadius = 14
         
         NSLayoutConstraint.activate([
-            takeCodeButton.topAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: 12),
-            takeCodeButton.leadingAnchor.constraint(equalTo: middleViewTwo.leadingAnchor, constant: 16),
-            takeCodeButton.trailingAnchor.constraint(equalTo: middleViewTwo.trailingAnchor, constant: -16),
-            takeCodeButton.heightAnchor.constraint(equalToConstant: 54)
+            takeCodeButtonTwo.topAnchor.constraint(equalTo: emailTextFieldTwo.bottomAnchor, constant: 12),
+            takeCodeButtonTwo.leadingAnchor.constraint(equalTo: middleViewTwo.leadingAnchor, constant: 16),
+            takeCodeButtonTwo.trailingAnchor.constraint(equalTo: middleViewTwo.trailingAnchor, constant: -16),
+            takeCodeButtonTwo.heightAnchor.constraint(equalToConstant: 54)
         ])
+        
+        takeCodeButtonTwo.addTarget(self, action: #selector(continueButtonTwoAction), for: .touchUpInside)
+        
+        takeCodeButtonTwo.addTarget(self, action: #selector(startTimer), for: .touchUpInside)
     }
     
     
     func backToEmailButtonLayout() {
-        middleViewTwo.addSubview(backToEmail)
-        backToEmail.backgroundColor = .white
-        backToEmail.setTitle("Назад", for: .normal)
-        backToEmail.translatesAutoresizingMaskIntoConstraints = false
-        backToEmail.setTitleColor(Colors.lightGreen, for: .normal)
-        backToEmail.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
-        backToEmail.layer.cornerRadius = 14
-        backToEmail.layer.borderColor = Colors.mainColorGreen.cgColor
-        backToEmail.layer.borderWidth = 1
+        middleViewTwo.addSubview(backToEmailTwo)
+        backToEmailTwo.backgroundColor = .white
+        backToEmailTwo.setTitle("Назад", for: .normal)
+        backToEmailTwo.translatesAutoresizingMaskIntoConstraints = false
+        backToEmailTwo.setTitleColor(Colors.mainColorGreen, for: .normal)
+        backToEmailTwo.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        backToEmailTwo.layer.cornerRadius = 14
+        backToEmailTwo.layer.borderColor = Colors.mainColorGreen.cgColor
+        backToEmailTwo.layer.borderWidth = 1
         
         NSLayoutConstraint.activate([
-            backToEmail.topAnchor.constraint(equalTo: takeCodeButton.bottomAnchor, constant: 12),
-            backToEmail.leadingAnchor.constraint(equalTo: middleViewTwo.leadingAnchor, constant: 16),
-            backToEmail.trailingAnchor.constraint(equalTo: middleViewTwo.trailingAnchor, constant: -16),
-            backToEmail.heightAnchor.constraint(equalToConstant: 54)
+            backToEmailTwo.topAnchor.constraint(equalTo: takeCodeButtonTwo.bottomAnchor, constant: 12),
+            backToEmailTwo.leadingAnchor.constraint(equalTo: middleViewTwo.leadingAnchor, constant: 16),
+            backToEmailTwo.trailingAnchor.constraint(equalTo: middleViewTwo.trailingAnchor, constant: -16),
+            backToEmailTwo.heightAnchor.constraint(equalToConstant: 54)
         ])
         
-        backToEmail.addTarget(self, action: #selector(backToEmailButtonAction), for: .touchUpInside)
+        backToEmailTwo.addTarget(self, action: #selector(backToEmailButtonAction), for: .touchUpInside)
     }
 }
 
+
+
+// MARK: - Middle Items Three
+private extension CreateAccountViewController {
+    
+    
+    func middleItemsThree() {
+        middleViewThreeLayout()
+        labelThreeLayout()
+        littleLabelThreeLayout()
+        loginTextFieldThreeLayout()
+        codeTimeLeftLabelLayout()
+        takeCodeAgainLayout()
+        takeCodeButtonThreeLayout()
+        backToEmailButtonThreeLayout()
+    }
+    
+    
+    func middleViewThreeLayout() {
+        
+        view.addSubview(middleViewThree)
+        middleViewThree.backgroundColor = .white
+        middleViewThree.translatesAutoresizingMaskIntoConstraints = false
+        middleViewThree.layer.cornerRadius = 20
+        middleViewThree.isHidden = true
+        
+        
+        NSLayoutConstraint.activate([
+            middleViewThree.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 32),
+            middleViewThree.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            middleViewThree.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            middleViewThree.heightAnchor.constraint(equalToConstant: 424)
+        ])
+        
+    }
+    
+    
+    func labelThreeLayout() {
+        middleViewThree.addSubview(topLabelThree)
+        topLabelThree.translatesAutoresizingMaskIntoConstraints = false
+        topLabelThree.text = "Создание аккаунта"
+        topLabelThree.font = UIFont.boldSystemFont(ofSize: 24)
+        
+        NSLayoutConstraint.activate([
+        
+            topLabelThree.topAnchor.constraint(equalTo: middleViewThree.topAnchor, constant: 36),
+            topLabelThree.leadingAnchor.constraint(equalTo: middleViewThree.leadingAnchor, constant: 16),
+            topLabelThree.trailingAnchor.constraint(equalTo: middleViewThree.trailingAnchor, constant: -16),
+        ])
+    }
+    
+    
+    func littleLabelThreeLayout() {
+        middleViewThree.addSubview(littleLabelThree)
+        littleLabelThree.translatesAutoresizingMaskIntoConstraints =  false
+        littleLabelThree.textColor = UIColor(red: 0.417, green: 0.431, blue: 0.438, alpha: 1)
+        littleLabelThree.numberOfLines = 0
+        littleLabelThree.lineBreakMode = .byWordWrapping
+        
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineHeightMultiple = 1.19
+        // Line height: 20 pt
+        littleLabelThree.attributedText = NSMutableAttributedString(string: "Введите код из письма", attributes: [NSAttributedString.Key.paragraphStyle: paragraphStyle])
+        
+        NSLayoutConstraint.activate([
+            littleLabelThree.topAnchor.constraint(equalTo: topLabelThree.bottomAnchor, constant: 32),
+            littleLabelThree.leadingAnchor.constraint(equalTo: middleViewThree.leadingAnchor, constant: 16),
+            littleLabelThree.trailingAnchor.constraint(equalTo: middleViewThree.trailingAnchor, constant: -16)
+        ])
+        
+    }
+    
+    
+    
+    
+    func loginTextFieldThreeLayout() {
+        middleViewThree.addSubview(emailTextFieldThree)
+        emailTextFieldThree.translatesAutoresizingMaskIntoConstraints = false
+        emailTextFieldThree.layer.borderWidth = 1
+        emailTextFieldThree.layer.borderColor = UIColor.lightGray.cgColor
+        emailTextFieldThree.layer.cornerRadius = 14
+        emailTextFieldThree.placeholder = "   4 цифры"
+        
+       
+        
+        NSLayoutConstraint.activate([
+            emailTextFieldThree.topAnchor.constraint(equalTo: littleLabelThree.bottomAnchor, constant: 8),
+            emailTextFieldThree.trailingAnchor.constraint(equalTo: middleViewThree.trailingAnchor, constant: -16),
+            emailTextFieldThree.leadingAnchor.constraint(equalTo: middleViewThree.leadingAnchor, constant: 16),
+            emailTextFieldThree.heightAnchor.constraint(equalToConstant: 54),
+            
+        ])
+    }
+    
+    func codeTimeLeftLabelLayout() {
+        middleViewThree.addSubview(codeTimeLeftLabel)
+        codeTimeLeftLabel.translatesAutoresizingMaskIntoConstraints = false
+        codeTimeLeftLabel.text = "Отправить код заново \(Int(timeInterval)) сек."
+        codeTimeLeftLabel.textColor = .lightGray
+        codeTimeLeftLabel.font = UIFont.systemFont(ofSize: 12)
+        
+        NSLayoutConstraint.activate([
+            codeTimeLeftLabel.topAnchor.constraint(equalTo: emailTextFieldThree.bottomAnchor, constant: 8),
+            codeTimeLeftLabel.leadingAnchor.constraint(equalTo: middleViewThree.leadingAnchor, constant: 16),
+            
+        ])
+    }
+    
+    func takeCodeAgainLayout() {
+        middleViewThree.addSubview(takeCodeAgain)
+        takeCodeAgain.translatesAutoresizingMaskIntoConstraints = false
+        takeCodeAgain.setTitle("Отправить заново", for: .normal)
+        takeCodeAgain.setTitleColor(Colors.lightGreen, for: .disabled)
+        takeCodeAgain.setTitleColor(Colors.mainColorGreen, for: .normal)
+        takeCodeAgain.isEnabled = false
+        takeCodeAgain.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        takeCodeAgain.backgroundColor = .clear
+        
+        NSLayoutConstraint.activate([
+            takeCodeAgain.topAnchor.constraint(equalTo: codeTimeLeftLabel.bottomAnchor, constant: 14),
+            takeCodeAgain.leadingAnchor.constraint(equalTo: middleViewThree.leadingAnchor, constant: 16),
+            
+        ])
+        
+        takeCodeAgain.addTarget(self, action: #selector(startTimer), for: .touchUpInside)
+        
+    }
+    
+    func takeCodeButtonThreeLayout() {
+        middleViewThree.addSubview(takeCodeButtonThree)
+        takeCodeButtonThree.backgroundColor = Colors.mainColorGreen
+        takeCodeButtonThree.setTitle("Продолжить", for: .normal)
+        takeCodeButtonThree.translatesAutoresizingMaskIntoConstraints = false
+        takeCodeButtonThree.setTitleColor(.white, for: .normal)
+        takeCodeButtonThree.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        takeCodeButtonThree.layer.cornerRadius = 14
+        
+        NSLayoutConstraint.activate([
+            takeCodeButtonThree.topAnchor.constraint(equalTo: takeCodeAgain.bottomAnchor, constant: 24),
+            takeCodeButtonThree.leadingAnchor.constraint(equalTo: middleViewThree.leadingAnchor, constant: 16),
+            takeCodeButtonThree.trailingAnchor.constraint(equalTo: middleViewThree.trailingAnchor, constant: -16),
+            takeCodeButtonThree.heightAnchor.constraint(equalToConstant: 54)
+        ])
+        
+        takeCodeButtonThree.addTarget(self, action: #selector(continueButtonThreeAction), for: .touchUpInside)
+    }
+    
+    
+    func backToEmailButtonThreeLayout() {
+        middleViewThree.addSubview(backToEmailThree)
+        backToEmailThree.backgroundColor = .white
+        backToEmailThree.setTitle("Назад", for: .normal)
+        backToEmailThree.translatesAutoresizingMaskIntoConstraints = false
+        backToEmailThree.setTitleColor(Colors.mainColorGreen, for: .normal)
+        backToEmailThree.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        backToEmailThree.layer.cornerRadius = 14
+        backToEmailThree.layer.borderColor = Colors.mainColorGreen.cgColor
+        backToEmailThree.layer.borderWidth = 1
+        
+        NSLayoutConstraint.activate([
+            backToEmailThree.topAnchor.constraint(equalTo: takeCodeButtonThree.bottomAnchor, constant: 12),
+            backToEmailThree.leadingAnchor.constraint(equalTo: middleViewThree.leadingAnchor, constant: 16),
+            backToEmailThree.trailingAnchor.constraint(equalTo: middleViewThree.trailingAnchor, constant: -16),
+            backToEmailThree.heightAnchor.constraint(equalToConstant: 54)
+        ])
+        
+        backToEmailThree.addTarget(self, action: #selector(backToEmailButtonTwoAction), for: .touchUpInside)
+        backToEmailThree.addTarget(self, action: #selector(stopTimer), for: .touchUpInside)
+    }
+}
 
 // MARK: - Buttons Action
 private extension CreateAccountViewController {
@@ -550,20 +746,96 @@ private extension CreateAccountViewController {
         middleView.isHidden = false
         middleViewTwo.isHidden = true
     }
+    
+    
+    @objc func continueButtonTwoAction() {
+        middleViewTwo.isHidden = true
+        middleViewThree.isHidden = false
+    }
+    
+    @objc func backToEmailButtonTwoAction() {
+        middleViewTwo.isHidden = false
+        middleViewThree.isHidden = true
+    }
+    
+    
+    @objc func continueButtonThreeAction() {
+        if emailTextFieldThree.text == CodeRegister.code.codeRegister {
+            print("Yes")
+        }else {
+            emailTextFieldThree.layer.borderColor = UIColor.systemRed.cgColor
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                
+                self.emailTextFieldThree.layer.borderColor = UIColor.systemGray.cgColor
+                
+            }
+        }
+    }
+}
+
+// MARK: - Time Inteval
+
+private extension CreateAccountViewController {
+    @objc func startTimer() {
+        timeInterval = 5
+        takeCodeAgain.isEnabled = false
+        timer?.invalidate()
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timeTick), userInfo: nil, repeats: true)
+        isTimerActive = true
+        updateTimeLabel()
+        
+    
+        
+    }
+    @objc func stopTimer() {
+        takeCodeAgain.isEnabled = true
+        isTimerActive = false
+        timeInterval = 5
+        updateTimeLabel()
+        timer?.invalidate()
+    }
+    func updateTimeLabel() {
+        
+        codeTimeLeftLabel.text = "Отправить код заново \(Int(timeInterval)) сек."
+        
+    }
+    
+    @objc func timeTick() {
+        
+        timeInterval -= 1
+        updateTimeLabel()
+        
+        if timeInterval == 0 {
+            stopTimer()
+            
+            timeInterval = 0
+            codeTimeLeftLabel.text = "Отправить код заново \(Int(timeInterval)) сек."
+        }
+        
+        
+    }
+    
 }
 
 
 
+// MARK: - ViewModel Binding
+
 private extension CreateAccountViewController {
     func binViewModel() {
         NotificationCenter.default
-            .publisher(for: UITextField.textDidChangeNotification, object: emailTextField)
+            .publisher(for: UITextField.textDidChangeNotification, object: emailTextFieldTwo)
             .map { ($0.object as! UITextField).text ?? "" }
             .assign(to: \.email, on: viewModel)
             .store(in: &cancellables)
         
         viewModel.isValidEmailPublisher
-            .assign(to: \.isEnabled, on: takeCodeButton)
+            .assign(to: \.isEnabled, on: takeCodeButtonTwo)
             .store(in: &cancellables)
     }
 }
+
+
+
+
