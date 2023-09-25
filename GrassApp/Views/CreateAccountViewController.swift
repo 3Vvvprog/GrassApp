@@ -998,7 +998,7 @@ private extension CreateAccountViewController {
         
         toggleSexView.addSubview(womenToggleButton)
         womenToggleButton.translatesAutoresizingMaskIntoConstraints = false
-        womenToggleButton.setTitle("Ищу сотрудников", for: .normal)
+        womenToggleButton.setTitle("Женский", for: .normal)
         womenToggleButton.backgroundColor = .clear
         womenToggleButton.setTitleColor(.lightGray, for: .normal)
         womenToggleButton.titleLabel?.font = UIFont.systemFont(ofSize: 16)
@@ -1227,6 +1227,7 @@ private extension CreateAccountViewController {
     @objc func continueButtonAction() {
         middleView.isHidden = true
         middleViewTwo.isHidden = false
+        
     }
     
     // Back to change person or company
@@ -1462,6 +1463,8 @@ private extension CreateAccountViewController {
         
         
     }
+    
+    
 }
 
 
