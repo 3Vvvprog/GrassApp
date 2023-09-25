@@ -58,6 +58,8 @@ class CreateAccountViewController: UIViewController {
     private let topLabelThree = UILabel()
     private let littleLabelThree = UILabel()
     
+    private var isCodeEntered = false
+    
     private let codeTextFieldThree = RegisterTextField(placeholder: "4 цифры")
     private let codeTimeLeftLabel = UILabel()
     private var timer: Timer?
@@ -128,6 +130,7 @@ class CreateAccountViewController: UIViewController {
         view.backgroundColor = Colors.backgroundColor
         self.hideNavigationBar()
         setupLayout()
+        binViewModel()
     }
     
 }
@@ -563,7 +566,7 @@ private extension CreateAccountViewController {
         middleViewThreeLayout()
         labelThreeLayout()
         littleLabelThreeLayout()
-        loginTextFieldThreeLayout()
+        codeTextFieldThreeLayout()
         codeTimeLeftLabelLayout()
         takeCodeAgainLayout()
         continueButtonThreeLayout()
@@ -628,8 +631,9 @@ private extension CreateAccountViewController {
     
     
     
-    func loginTextFieldThreeLayout() {
+    func codeTextFieldThreeLayout() {
         middleViewThree.addSubview(codeTextFieldThree)
+        codeTextFieldThree.keyboardType = .numberPad
         
         NSLayoutConstraint.activate([
             codeTextFieldThree.topAnchor.constraint(equalTo: littleLabelThree.bottomAnchor, constant: 8),
@@ -1306,7 +1310,7 @@ private extension CreateAccountViewController {
         }
     }
     
-    
+    // Сhoice male gender
     @objc func menToggleButtonAction() {
         
         womenToggleButton.backgroundColor = .clear
@@ -1316,6 +1320,7 @@ private extension CreateAccountViewController {
         isMenActive = true
     }
     
+    // Сhoice female gender
     @objc func womenToggleButtonAction() {
         
         menToggleButton.backgroundColor = .clear
@@ -1325,11 +1330,13 @@ private extension CreateAccountViewController {
         isMenActive = false
     }
     
-    
+    // Finishing registration
     @objc func finishRegisteringButtonAction() {
         navigationController?.popViewController(animated: true)
     }
     
+    
+    // Back to entering password from Person
     @objc func backButtonFiveAction() {
         middleViewFour.isHidden = false
         middleViewFive.isHidden = true
@@ -1337,6 +1344,7 @@ private extension CreateAccountViewController {
         repeatPasswordTextField.text = ""
     }
     
+    // Back to entering password from Company
     @objc func backButtonSixAction() {
         middleViewFour.isHidden = false
         middleViewSix.isHidden = true
@@ -1367,7 +1375,7 @@ private extension CreateAccountViewController {
 //    }
 //}
 
-// MARK: - Time Inteval
+// MARK: - Time Inteval of opportunity to send code one more time
 
 private extension CreateAccountViewController {
     @objc func startTimer() {
@@ -1377,6 +1385,7 @@ private extension CreateAccountViewController {
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timeTick), userInfo: nil, repeats: true)
         isTimerActive = true
         updateTimeLabel()
+        
         
     
         
@@ -1426,6 +1435,32 @@ private extension CreateAccountViewController {
         viewModel.isValidEmailPublisher
             .assign(to: \.isEnabled, on: takeCodeButton)
             .store(in: &cancellables)
+        
+        
+        NotificationCenter.default
+            .publisher(for: UITextField.textDidChangeNotification, object: codeTextFieldThree)
+            .map { ($0.object as! UITextField).text ?? "" }
+            .assign(to: \.code, on: viewModel)
+            .store(in: &cancellables)
+        
+        viewModel.isCodeInteredPublisher
+            .assign(to: \.isCodeEntered, on: self)
+            .store(in: &cancellables)
+        
+        viewModel.isCodeInteredPublisher
+            .sink(receiveValue: {  _ in
+                if self.isCodeEntered {
+                    self.continueButtonThree.setTitle("Loading...", for: .normal)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                        self.continueButtonThree.setTitle("Продолжить", for: .normal)
+                        self.continueButtonThreeAction()
+                    }
+                    
+                }
+            })
+            .store(in: &cancellables)
+        
+        
     }
 }
 

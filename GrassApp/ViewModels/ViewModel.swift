@@ -20,6 +20,7 @@ class ViewModel {
     
     @Published var email = ""
     @Published var password = ""
+    @Published var code = ""
     @Published var color: UIColor = Colors.lightGreen
     @Published var state: ViewStates = .none
     
@@ -32,6 +33,12 @@ class ViewModel {
     var isValidPasswordPublisher: AnyPublisher<Bool, Never> {
         $password
             .map { !$0.isEmpty }
+            .eraseToAnyPublisher()
+    }
+    
+    var isCodeInteredPublisher: AnyPublisher<Bool, Never> {
+        $code
+            .map { $0.count == 4 }
             .eraseToAnyPublisher()
     }
     
